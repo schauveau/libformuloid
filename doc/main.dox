@@ -1,0 +1,151 @@
+// -*- mode: c++ -*-
+
+/*! @defgroup grp_formuloid_api The formuloid API 
+*/
+
+/*! @defgroup grp_func Formuloid functions
+@brief Functions to create and manipulate formuloids
+*/
+
+/*! @defgroup grp_support Support functions, types and macros
+@brief TODO
+*/
+
+/*! @defgroup grp_compute Compute 
+@brief functors in the compute 
+
+Below are the 'compute' functors (i.e. lambda, classes or regular functions) used
+to implement most of the formuloid functions. They are only given for information
+purpose and should not be considered to be part of the libformuloid API. Changes may occur.  
+
+@note The 'requires' clause found in some functors is not strictly needed but it
+nsures that a proper instantiation error occurs if the encapsulated 'std' function
+does not exists for the given type (or more precisely, does not returns a result
+of the expected type). 
+
+The prefix in each 'compute' functor matches the scheme of a \c fmd::make_formuloid_???
+function.
+
+@see fmd::make_formuloid_v fmd::make_formuloid_pv fmd::make_formuloid_cnt
+
+*/
+
+/// @ingroup grp_compute
+namespace fmd::compute {} 
+
+
+/*! \mainpage Libformuloid 
+\tableofcontents  
+
+\section sec_formuloids Formuloid introduction
+
+A formuloid is a C++ object that stores a formula that can be evaluated according
+to a single parameter. Simply speaking, a formuloid is a
+special kind of function that can produce a value from a single argument of
+type fmd::param_t (i.e. double). What makes formuloids different from regular
+'Callable' objects is that formuloids come with their own arithmetic.
+
+
+In \c libformuloid, the formula stored in a formuloid object can be printed using a
+lisp-like notation where '@' represents the formuloid parameter. For example,
+<tt>@ -> (+ (* @ @) 1.0)'</tt> is the representation of a formuloid that
+computes \c f(t)=t*t+1.0. The formula syntax is arbitrary. It is only provided 
+for debugging purposes and it may change in future revisions.
+
+
+The primary C++ type used to represent formuloid objects is \c
+fmd::formuloid<T> where T is the type produced by evaluating the formuloid. 
+
+\c T should typically be \c double but other types such as \c
+bool, \c int or \c float are possible.
+
+The class \c fmd::formuloid<T> is very basic so most codes will use a 
+more user-friendly specialized version such as \c fmd::formuloid<T>.
+
+
+The global variable fmd::id of type fmd::formuloid<double> represents the identify
+formuloid. Its purpose is simply to provide the formuloid parameter when
+building more complex formuloid formulas.
+
+\code
+   using fmd::id ; //  id = @ -> @ 
+\endcode
+
+In practice, 
+
+\code
+ fmd::formuloid<double> f1 = sin(id)+id*cos(id+1.0);  // f1(@) = (+ (sin @) (* @ (cos @ 1.0)))
+ fmd::formuloid<double> f2 = 3.0*id;  // f2(@) = (+ 3.0 @) 
+ fmd::formuloid<double> f3 = f1/f2;   // f3(@) = (/ (+ (sin @) (* @ (cos @ 1.0)))  (+ 3.0 @))
+\endcode
+
+As shown in the previous example, formuloids can be combined using operators and functions to 
+create more complex formuloids. This is the main difference and benefit over classical C++ functions 
+and lambdas.
+
+
+\section sec_notations Notation
+
+\subsection sec_notation_basal Basal formuloid
+
+Basal formuloid types are C++ types that can be used as formuloid values. 
+
+A type \c T is a basal formuloid type if and only if 
+ - \c T is not \c void
+ - \c T is neither \c const, \c volatile, a reference or an array.  
+ - \c T is not publicly derived from \c fmd::formuloid_root. 
+ - \c T is not publicly derived from \c fmd::non_basal_type nor a pointer to that type. 
+ 
+See also fmd::IsBasalFormuloid<T>.  
+
+\subsection sec_notation_actual Actual formuloid
+
+Actual formuloid types are C++ types that are publically derived from fmd::formuloid.
+
+In practice, that means that an actual formuloid can be store an arbitrarily complex formula. 
+
+See also fmd::IsActualFormuloid<T>.  
+
+\section sec_default_promotion Formuloid default promotion rule
+
+Any formuloid type is defined by two properties
+- its basal type
+- its actual status (i.e. is it a basal or an actual formuloid?) 
+
+Most formuloid support functions respect the default promotion rule which states that
+  - if any of their their formuloid arguments is an actual formuloid then 
+    the result is an actual formuloid, usually of type fmd::formuloid<U>.
+  - otherwise, that is when all formuloid arguments are basal formuloids, the result 
+    is immediately evaluated and a basal type is returned (that would be \c U).
+
+Example: consider the fmd::fmod function that follows the default promotion rule.
+\code 
+   // When all arguments are basal, the function is immediately 
+   // evaluted with a result of type double. It is equivalent 
+   // to std::fmod.  
+   auto v1 = fmd::fmod(42.0, 2.0) ;
+   static_assert( std::same_as< decltype(v1), double > );
+
+   // If any argument is an actual formuloid then the result  
+   // of type formuloid<double>
+   fmd::formuloid<double> x = fmd::max(fmd::id,2.0) ; 
+
+   auto v2 = fmd::fmod( fmd::id, 2.0) ;
+   static_assert( std::same_as< decltype(v2), fmd::formuloid<double> > );
+
+   auto v3 = fmd::fmod( 42.0, x) ;
+   static_assert( std::same_as< decltype(v3), fmd::formuloid<double> > );
+
+   auto v4 = fmd::fmod( fmd::id, x) ;
+   static_assert( std::same_as< decltype(v4), fmd::formuloid<double> > );
+
+\endcode
+
+In order to keep the documentation simple, `fmd::fmod` like other functions that 
+follow the default promotion rule, is given with a return type `fmd::formuloid<U>`. 
+It should be understood that this means `U` when all the formuloid arguments 
+are basal.
+
+
+
+*/

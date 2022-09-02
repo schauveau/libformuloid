@@ -1,0 +1,398 @@
+
+
+/// @brief TO BE DOCUMENTED
+/// TO BE DOCUMENTED
+namespace fmd {
+
+
+// ===================== Unary functions and operators ========================
+
+#define EXPAND1(NAME,REQUIRES) \
+  template< fmd::IsFormuloid<U> T1> \
+  REQUIRES \
+  fmd::formuloid<U> \
+  NAME(T1 a) 
+
+#define EXPAND2(NAME,REQUIRES) \
+  template< fmd::IsFormuloid<U> T1, fmd::IsFormuloid<U> T2>              \
+  REQUIRES \
+  fmd::formuloid<U> \
+  NAME(const T1 &a, const T2 &b) 
+
+#define EXPAND3(NAME,REQUIRES) \
+  template< fmd::IsFormuloid<U> T1, fmd::IsFormuloid<U> T2, fmd::IsFormuloid<U> T3>              \
+  REQUIRES \
+  fmd::formuloid<U> \
+  NAME(const T1 &a, const T2 &b, const T3 &c) 
+
+#define EXPAND1_FULL(NAME,IN1,REQUIRES,OUT)    \
+  template< fmd::IsFormuloid<IN1> T1>           \
+  REQUIRES \
+  fmd::formuloid<OUT> \
+  NAME(const T1 &a) 
+
+#define EXPAND2_FULL(NAME,IN1,IN2,REQUIRES,OUT) \
+  template< fmd::IsFormuloid<IN1> T1, fmd::IsFormuloid<IN2> T2>           \
+  REQUIRES \
+  fmd::formuloid<OUT> \
+  NAME(const T1 &a, const T2 &b) 
+
+
+/// @addtogroup grp_func
+/// @{
+
+
+/// @brief Formuloid implementation of \c std::abs
+///
+/// \default_promotion
+EXPAND1(abs, requires (U ∈ {int,long,long long,float,double})) ;
+
+/// @brief Formuloid implementation of \c std::sin
+///
+/// \default_promotion
+EXPAND1(sin, requires (U ∈ {float,double})) ;
+
+
+/// @brief Formuloid implementation of \c std::cos
+///
+/// \default_promotion
+EXPAND1(cos, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::tan
+///
+/// \default_promotion
+EXPAND1(tan, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::asin
+///
+/// \default_promotion
+EXPAND1(asin, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::acos
+///
+/// \default_promotion
+EXPAND1(acos, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::atan
+///
+/// \default_promotion
+EXPAND1(atan, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::sin in degrees
+///
+/// \default_promotion
+EXPAND1(sind, requires (U ∈ {float,double})) ;
+
+/// @brief Formuloid implementation of \c std::cos in degrees
+///
+/// \default_promotion
+EXPAND1(cosd, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::tan in degrees
+///
+/// \default_promotion
+EXPAND1(tand, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::asin in degrees
+///
+/// \default_promotion
+EXPAND1(asind, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::acos in degrees
+///
+/// \default_promotion
+EXPAND1(acosd, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::atan in degrees
+///
+/// \default_promotion
+EXPAND1(atand, requires (U ∈ {float,double}) ) ;
+
+
+/// @brief Formuloid implementation of \c std::sinh in degrees
+///
+/// \default_promotion
+EXPAND1(sinh, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::cosh in degrees
+///
+/// \default_promotion
+EXPAND1(cosh, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::tanh in degrees
+///
+/// \default_promotion
+EXPAND1(tanh, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::acosh in degrees
+///
+/// \default_promotion
+EXPAND1(acosh, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::asinh in degrees
+///
+/// \default_promotion
+EXPAND1(asinh, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::atanh in degrees
+///
+/// \default_promotion
+EXPAND1(atanh, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::floor
+///
+/// \default_promotion
+EXPAND1(floor, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::ceil
+///
+/// \default_promotion
+EXPAND1(ceil, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::trunc
+///
+/// \default_promotion
+EXPAND1(trunc, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::round
+///
+/// \default_promotion
+EXPAND1(round, requires (U ∈ {float,double}) ) ;
+
+/// @brief Distance from floor
+///
+/// \c fmd::floor_dist(x) is equivalent to \c x-fmd::floor(x) except
+/// that \c x is only evaluated once
+///
+/// \note The result should be in the range \c [0,1.0( except if
+/// the argument is infinite or NaN.
+///
+/// \default_promotion
+EXPAND1(floor_dist, requires (U ∈ {float,double}) ) ;
+
+
+/// @brief Distance from ceil
+///
+/// \c fmd::ceil_dist(x) is equivalent to \c fmd::ceil(x)-x except
+/// that \c x is only evaluated once.
+///
+/// \note The result should be in the range \c [0,1.0( except when
+/// the argument is either infinite or NaN.
+///
+/// \default_promotion
+EXPAND1(ceil_dist, requires (U ∈ {float,double}) ) ;
+
+
+/// @brief Formuloid implementation of \c std::sqrt
+///
+/// \default_promotion
+EXPAND1(sqrt, requires (U ∈ {float,double}) ) ;
+
+
+/// @brief Formuloid implementation of \c std::cbrt
+///
+/// \default_promotion
+EXPAND1(cbrt, requires (U ∈ {float,double}) ) ;
+
+
+/// @brief Formuloid implementation of \c std::log
+///
+/// \default_promotion
+EXPAND1(log, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::log2
+///
+/// \default_promotion
+EXPAND1(log2, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::log10
+///
+/// \default_promotion
+EXPAND1(log10, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::exp
+///
+/// \default_promotion
+EXPAND1(exp, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::exp2
+///
+/// \default_promotion
+EXPAND1(exp2, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::atan2
+///
+/// \default_promotion
+EXPAND2(atan2, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::fmod
+///
+/// The returned value has the same sign as \c a and a magnitude less than the magnitude of \c b.
+///
+/// \default_promotion
+EXPAND2(fmod, requires (U ∈ {float,double}) ) ;
+
+
+/// \brief Compute the floor modulo. 
+///
+/// <tt>fmd::floor_fmod(a,b)</tt> is equivalent to <tt>a-floor(a/b)*a</tt>
+///
+/// \note The formuloids \c a and \c b are evaluated only once.
+///
+/// The returned value has the same sign as \c b and a magnitude less than the magnitude of \c b. 
+///
+/// \default_promotion
+EXPAND2(floor_fmod, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::pow
+///
+/// \default_promotion
+EXPAND2(pow, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::remainder
+///
+/// \default_promotion
+EXPAND2(remainder, requires (U ∈ {float,double}) ) ;
+
+/// @brief Formuloid implementation of \c std::hypot
+///
+/// \default_promotion
+EXPAND2(hypot, requires (U ∈ {float,double}) ) ;
+
+
+/// @brief Formuloid implementation of \c std::hypot
+///
+/// \default_promotion
+EXPAND3(hypot, requires (U ∈ {float,double}) ) ;
+
+
+/// @brief Get whatever value is between the other two.
+///
+/// \default_promotion
+EXPAND3(middle, requires (U ∈ {int,long,long long,float,double}) ) ;
+
+
+/// @brief Compute the sum of multiple formuloids.
+///
+/// \default_promotion
+template< fmd::IsFormuloid<U> T1, fmd::IsFormuloid<U> ... TMORE>
+requires ( U ∈ {int,long,float,double} )
+fmd::formuloid<U> 
+sum(const T1 &a, const Tmore & ...more) ;
+
+/// @brief Compute the mean of multiple formuloids.
+///
+/// \default_promotion
+template< fmd::IsFormuloid<U> T1, fmd::IsFormuloid<U> ... TMORE>
+requires ( U ∈ {int,long,float,double} )
+fmd::formuloid<U> 
+mean(const T1 &a, const Tmore & ...more) ;
+
+/// @brief Compute the product of multiple formuloids.
+///
+/// \default_promotion
+template< fmd::IsFormuloid<U> T1, fmd::IsFormuloid<U> ... TMORE>
+requires ( U ∈ {int,long,float,double} )
+fmd::formuloid<U> 
+product(const T1 &a, const Tmore & ...more) ;
+
+
+/// @brief Compute the minimum of multiple formuloids
+///
+/// \default_promotion
+template< fmd::IsFormuloid<U> T1, fmd::IsFormuloid<U> ... TMORE>
+requires ( U ∈ {int,long,float,double} )
+fmd::formuloid<U> 
+min(const T1 &a, const Tmore & ...more) ;
+
+
+/// @brief Compute the maximum of multiple formuloids
+///
+/// \default_promotion
+template< fmd::IsFormuloid<U> T1, fmd::IsFormuloid<U> ... TMORE>
+requires ( U ∈ {int,long,float,double} )
+fmd::formuloid<U> 
+max(const T1 &a, const Tmore & ...more) ;
+
+/// @brief Clamp a value between two boundaries
+///
+/// If \c v compares less than \c lo, returns \c lo;
+/// otherwise if \c hi compares less than \c v, returns \c hi;
+/// otherwise returns \c v.
+///
+/// \note The formuloid \c hi is not evaluated when \c v compares less than
+/// \c lo.
+/// 
+/// \default_promotion
+template < fmd::IsFormuloid<U> T1,         
+           fmd::IsFormuloid<U> T2,
+           fmd::IsFormuloid<U> T3>
+requires ( U ∈ {int,long,float,double} )
+fmd::formuloid<U> 
+clamp( const T1 & v , const T2 & lo , const T3 & hi) ;
+
+/// @brief Basal type conversion 
+///
+/// Convert a formuloid to the specified basal type.
+///
+/// Example:
+/// \code
+///    // Equivalent to a native conversion when used on a basal formuloid
+///    double v1 = 42.0;
+///    auto v2 = fmd::cast<int>(42.0) ; 
+///    static_assert<std::same_as<decltype(v2),int>;
+///    
+///    fmd::formuloid<double> v3 = fmd::id * 6.0 ;
+///    auto v4 = fmd::cast<int>(v3);
+///    static_assert<std::same_as<decltype(v4),fmd::formuloid<int>>;
+///
+/// \endcode
+///
+/// \default_promotion
+template< fmd::IsBasalFormuloid V,
+          fmd::IsFormuloid<U> T1>
+requires (std::is_convertible_v<U,V>) 
+fmd::formuloid<V> 
+cast(const T1 &a) ;
+
+
+/// @brief Apply a parameter to a formuloid
+///
+/// If `f` is an actual formuloid then this is equivalent to `f(p)`,
+/// assuming of course that `operator()` is properly overloaded for that
+/// formloid actual type.
+///
+/// Otherwise, that is when `f` is a basal formuloid, the parameter
+/// `p` is not used and the function returns `f`. 
+///
+/// \default_promotion except that the argument `p` is ignored. 
+///
+/// Example: 
+/// \code
+///   fmd::formuloid<double> at = fmd::id;
+///   fmd::formuloid<double> p = fmd::sqrt(at);
+///   fmd::formuloid<float> f  = fmd::cast<float>(fmd::cos(at*1.6)+fmd::sin(at*2.3));
+///   fmd::formuloid<float> f1 = fmd::apply(f,p);
+///   fmd::formuloid<float> f2 = f(p);
+///   fmd::formuloid<float> f3 = fmd::cast<float>(fmd::cos(p*1.6)+fmd::sin(p*2.3));
+///   // f1 and f2 are strictly equivalent.
+///   // f3 provides an equivalent but not strictly identical formula than f1 and f2.
+///   // A noticeable difference is that p and so `fmd::sqrt(at)` is computed twice
+///   // during the evaluation of f3[x] but only once for f1[x] and f2[x]. 
+///   for (double x=0.0 ; x<10.0 ; x+=1.0) {
+///     float v1 = f1[x];
+///     float v2 = f2[x];
+///     float v3 = f3[x];
+///     assert(v1==v2 && v2==v3);
+///   }
+/// \endcode
+///
+template< fmd::IsFormuloid<U>      T1,
+          fmd::IsFormuloid<double> T2>
+fmd::formuloid<U> 
+apply(const T1 &f, const T2 &p) ;
+
+/// @}
+
+}
+

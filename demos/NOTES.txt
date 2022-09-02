@@ -1,0 +1,45 @@
+
+A=(ax,ay)
+B=(bx,by)
+C=(cx,cy)
+D=(dx,dy)
+
+M=(xx,yx
+   xy,yy
+   x0,y0)
+
+
+V = AB = (bx-ax, by-ay) = (vx,vy) = polar(dv, av)
+W = CD = (dx-cx, dy-cy) = (wx,wy) = polar(dw, aw)
+
+cos(av) = vx/dv
+sin(av) = vy/dv
+cos(aw) = wx/dw
+sin(aw) = wy/dw
+
+
+
+translate(-ax,-ay)
+scale(dw/dv);
+rotate(aw-av);
+  //    cos(aw-av) , sin(aw-av)
+  //   -sin(aw-av) , cos(aw-av)
+  // ->
+  //    cos(aw)cos(av)+sin(aw)sin(av) , sin(aw)cos(av)-cos(aw)sin(av) 
+  //   -sin(aw)cos(av)+cos(aw)sin(av) , cos(aw)cos(av)+sin(aw)sin(av) 
+  // -> 
+  //    (wx/dw)(vx/dv)+(wy/dw)(vy/dv) , (wy/dw)(vx/dv)-(wx/dw)(vy/dv)
+  //   -(wy/dw)(vx/dv)+(wx/dw)(vy/dv) , (wx/dw)(vx/dv)+(wy/dw)(vy/dv)
+  // ->
+  //  [  wx*vx+wy*vy , wy*vx-wx*vy
+  //    -wy*vx+wx*vy , wx*vx+wy*vy ] / (dv*dw) 
+  //  followed by scale(1/(dv*dw)
+translate(+cx,+cy)
+
+translate(-ax,-ay)
+multiply
+  //  [  wx*vx+wy*vy , wy*vx-wx*vy
+  //    -wy*vx+wx*vy , wx*vx+wy*vy
+  //               0 ,           0] / (dv*dw) 
+scale(dw/dv);
+translate(+cx,+cy)

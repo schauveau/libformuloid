@@ -1,0 +1,176 @@
+# Doxyfile 1.9.1
+
+# This file describes the settings to be used by the documentation system
+# doxygen (www.doxygen.org) for a project.
+#
+# All text after a double hash (##) is considered a comment and is placed in
+# front of the TAG it is preceding.
+#
+# All text after a single hash (#) is considered a comment and will be ignored.
+# The format is:
+# TAG = value [value, ...]
+# For lists, items can also be appended using:
+# TAG += value [value, ...]
+# Values that contain spaces should be placed between quotes (\" \").
+
+
+DOXYFILE_ENCODING      = UTF-8
+
+PROJECT_NAME           = "Libformuloid"
+PROJECT_NUMBER         =
+
+PROJECT_BRIEF          =
+
+OUTPUT_DIRECTORY       = @DOXYGEN_OUTPUT@
+
+OUTPUT_LANGUAGE        = English
+
+REPEAT_BRIEF           = YES
+
+
+# This tag can be used to specify a number of aliases that act as commands in
+# the documentation. An alias has the form:
+# name=value
+# For example adding
+# "sideeffect=@par Side Effects:\n"
+# will allow you to put the command \sideeffect (or @sideeffect) in the
+# documentation, which will result in a user-defined paragraph with heading
+# "Side Effects:". You can put \n's in the value part of an alias to insert
+# newlines (in the resulting output). You can put ^^ in the value part of an
+# alias to insert a newline as if a physical newline was in the original file.
+# When you need a literal { or } or , in the value part of an alias you have to
+# escape them by means of a backslash (\), this can lead to conflicts with the
+# commands \{ and \} for these it is advised to use the version @{ and @} or use
+# a double escape (\\{ and \\})
+
+ALIASES =
+ALIASES += default_promotion="\note^^The formuloid status of the result is obtained \
+           via the @ref sec_default_promotion \"default promotion rules\" \
+           ^^"
+ALIASES += goto{1}="\ref \1"
+ALIASES += TBD="\brief TO BE DOCUMENTED"
+
+BUILTIN_STL_SUPPORT    = YES
+
+NUM_PROC_THREADS       = 1
+
+#---------------------------------------------------------------------------
+# Build related configuration options
+#---------------------------------------------------------------------------
+
+# If the EXTRACT_ALL tag is set to YES, doxygen will assume all entities in
+# documentation are documented, even if no documentation was available. Private
+# class members and static file members will be hidden unless the
+# EXTRACT_PRIVATE respectively EXTRACT_STATIC tags are set to YES.
+# Note: This will also disable the warnings about undocumented members that are
+# normally produced when WARNINGS is set to YES.
+# The default value is: NO.
+
+EXTRACT_ALL            = NO
+
+HIDE_UNDOC_MEMBERS     = NO
+HIDE_UNDOC_CLASSES     = NO
+HIDE_FRIEND_COMPOUNDS  = NO
+
+
+
+# If the SHOW_INCLUDE_FILES tag is set to YES then doxygen will put a list of
+# the files that are included by a file in the documentation of that file.
+# The default value is: YES.
+
+SHOW_INCLUDE_FILES     = YES
+
+SORT_MEMBER_DOCS       = YES
+SORT_BRIEF_DOCS        = YES
+
+# If the SORT_MEMBERS_CTORS_1ST tag is set to YES then doxygen will sort the
+# (brief and detailed) documentation of class members so that constructors and
+# destructors are listed first. If set to NO the constructors will appear in the
+# respective orders defined by SORT_BRIEF_DOCS and SORT_MEMBER_DOCS.
+# Note: If SORT_BRIEF_DOCS is set to NO this option is ignored for sorting brief
+# member documentation.
+# Note: If SORT_MEMBER_DOCS is set to NO this option is ignored for sorting
+# detailed member documentation.
+# The default value is: NO.
+
+SORT_MEMBERS_CTORS_1ST = YES
+
+
+# If the STRICT_PROTO_MATCHING option is enabled and doxygen fails to do proper
+# type resolution of all parameters of a function it will reject a match between
+# the prototype and the implementation of a member function even if there is
+# only one candidate or it is obvious which candidate to choose by doing a
+# simple string match. By disabling STRICT_PROTO_MATCHING doxygen will still
+# accept a match between prototype and implementation in such cases.
+# The default value is: NO.
+
+STRICT_PROTO_MATCHING  = NO
+
+
+# The ENABLED_SECTIONS tag can be used to enable conditional documentation
+# sections, marked by \if <section_label> ... \endif and \cond <section_label>
+# ... \endcond blocks.
+
+ENABLED_SECTIONS       =
+
+# The MAX_INITIALIZER_LINES tag determines the maximum number of lines that the
+# initial value of a variable or macro / define can have for it to appear in the
+# documentation. If the initializer consists of more lines than specified here
+# it will be hidden. Use a value of 0 to hide initializers completely. The
+# appearance of the value of individual variables and macros / defines can be
+# controlled using \showinitializer or \hideinitializer command in the
+# documentation regardless of this setting.
+# Minimum value: 0, maximum value: 10000, default value: 30.
+
+MAX_INITIALIZER_LINES  = 10
+
+
+SHOW_USED_FILES        = NO
+SHOW_FILES             = NO
+
+QUIET                  = NO
+WARNINGS               = YES
+
+INPUT                  = @DOXYGEN_INPUT@
+
+INPUT_ENCODING         = UTF-8
+
+FILE_PATTERNS          = *.dox *.cc *.h
+
+RECURSIVE              = NO
+
+EXCLUDE_SYMBOLS        = fmd::internal::* fmd::compute::* 
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_TREEVIEW      = YES
+
+GENERATE_LATEX         = NO
+
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = YES
+
+# If the SEARCH_INCLUDES tag is set to YES, the include files in the
+# INCLUDE_PATH will be searched if a #include is found.
+# The default value is: YES.
+# This tag requires that the tag ENABLE_PREPROCESSING is set to YES.
+
+SEARCH_INCLUDES        = YES
+
+EXPAND_AS_DEFINED      = \
+  __impl_simple_formuloid_v_1 \
+  __impl_simple_formuloid_v_2_same \
+  __impl_simple_formuloid_v_3_same \
+  EXPAND1 EXPAND1_FULL \
+  EXPAND2 EXPAND2_FULL \
+  EXPAND3 EXPAND3_FULL \
+  EXPAND4 \
+  EXPAND5 \
+  EXPAND6 \
+  EXPAND7 \
+
+# Without 'dot', CLASS_GRAPH can still be used to generate a 
+# simple graph representing the class hierarchy. 
+HAVE_DOT               = NO
+CLASS_GRAPH            = YES

@@ -1,0 +1,130 @@
+// -*- mode: c++ -*-
+
+#define EXPAND1(NAME,REQUIRES) \
+  template< fmd::IsFormuloid<U> T1> \
+  REQUIRES \
+  fmd::formuloid<U> \
+  NAME(T1 a) 
+
+#define EXPAND2(NAME,REQUIRES) \
+  template< fmd::IsFormuloid<U> T1, fmd::IsFormuloid<U> T2>              \
+  REQUIRES \
+  fmd::formuloid<U> \
+  NAME(const T1 &a, const T2 &b) 
+
+
+#define EXPAND1_FULL(NAME,IN1,REQUIRES,OUT)    \
+  template< fmd::IsFormuloid<IN1> T1>           \
+  REQUIRES \
+  fmd::formuloid<OUT> \
+  NAME(const T1 &a) 
+
+#define EXPAND2_FULL(NAME,IN1,IN2,REQUIRES,OUT) \
+  template< fmd::IsFormuloid<IN1> T1, fmd::IsFormuloid<IN2> T2>           \
+  REQUIRES \
+  fmd::formuloid<OUT> \
+  NAME(const T1 &a, const T2 &b) 
+
+
+/// @defgroup grp_operators Formuloid operators
+///
+/// @addtogroup grp_operators
+///
+/// @{
+
+/// @brief Formuloid implementation of unary \c operator-
+///
+/// \default_promotion
+EXPAND1(operator-, requires (U ∈ {float,double})) ;
+
+/// @brief Formuloid implementation of \c operator~
+///
+/// \default_promotion
+EXPAND1(operator~, requires (U ∈ {int,long})) ;
+
+/// @brief Formuloid implementation of \c operator~
+///
+/// \default_promotion
+EXPAND1_FULL(operator!, bool, ,bool);
+
+/// \brief Formuloid implementation of operator +
+///
+/// \default_promotion
+EXPAND2(operator+, requires (U ∈ {int,long,float,double}) ) ;
+
+/// \brief Formuloid implementation of operator *
+///
+/// \default_promotion
+EXPAND2(operator*, requires (U ∈ {int,long,float,double}) ) ;
+
+/// \brief Formuloid implementation of operator /
+///
+/// \default_promotion
+EXPAND2(operator/, requires (U ∈ {int,long,float,double}) ) ;
+
+
+/// \brief Formuloid implementation of operator %
+///
+/// \default_promotion
+EXPAND2(operator%, requires (U ∈ {int,long}) ) ;
+
+/// \brief Formuloid implementation of operator ==
+///
+/// \default_promotion
+EXPAND2_FULL(operator==, U, U, requires (U ∈ {bool,int,long,float,double}) , bool) ;
+
+/// \brief Formuloid implementation of operator !=
+///
+/// \default_promotion
+EXPAND2_FULL(operator!=, U, U, requires (U ∈ {bool,int,long,float,double}) , bool) ;
+
+/// \brief Formuloid implementation of operator &
+///
+/// \default_promotion
+EXPAND2(operator&, requires (U ∈ {int,long}) ) ;
+
+/// \brief Formuloid implementation of operator |
+///
+/// \default_promotion
+EXPAND2(operator|, requires (U ∈ {int,long}) ) ;
+
+/// \brief Formuloid implementation of operator ^
+///
+/// \default_promotion
+EXPAND2(operator^, requires (U ∈ {int,long}) ) ;
+
+/// \brief Formuloid implementation of operator <
+///
+/// \default_promotion
+EXPAND2_FULL(operator<, U, U, requires (U ∈ {int,long,float,double}) , bool) ;
+
+
+/// \brief Formuloid implementation of operator >
+///
+/// \default_promotion
+EXPAND2_FULL(operator>, U, U, requires (U ∈ {int,long,float,double}) , bool) ;
+
+/// \brief Formuloid implementation of operator <=
+///
+/// \default_promotion
+EXPAND2_FULL(operator<=, U, U, requires (U ∈ {int,long,float,double}) , bool) ;
+
+/// \brief Formuloid implementation of operator >=
+///
+/// \default_promotion
+EXPAND2_FULL(operator>=, U, U, requires (U ∈ {int,long,float,double}) , bool) ;
+
+
+/// \brief Formuloid implementation of operator &&
+///
+/// \default_promotion
+EXPAND2_FULL(operator&&, bool, bool, , bool) ;
+
+/// \brief Formuloid implementation of operator ||
+///
+/// \default_promotion
+EXPAND2_FULL(operator||, bool, bool, , bool) ;
+
+
+
+/// @}

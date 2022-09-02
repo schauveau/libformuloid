@@ -1,0 +1,31 @@
+// -*- mode: c++ -*-
+
+///
+/// @defgroup grp_concept Formuloid type traits and concepts
+/// @brief TODO
+
+namespace fmd {
+
+/// @addtogroup grp_concept
+/// @{
+
+
+/// \brief Provide the basal type of any formuloid type.
+///
+/// if T is not a formuloid then a compilation error is produced instead
+///
+/// Example:
+/// \code
+///   static_assert( std::is_same_v< fmd::basal_type_of<fmd::func<int>>, int > ) ;
+///   static_assert( std::is_same_v< fmd::basal_type_of<double>, double > ) ;
+///   // void because qualified types are not formuloid. 
+///   static_assert( std::is_void< fmd::basal_type_of<const int> > ) ;
+///   static_assert( std::is_void< fmd::basal_type_of<int&> > ) ;
+/// \endcode
+///
+template <typename T> using basal_type_of = ... ;
+
+/// @}
+
+} // of namespace fmd
+
