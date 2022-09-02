@@ -7,10 +7,10 @@ build/
 # Devs may want to use ./usr as install directory with meson --Dprefix=$PWD/usr/
 usr/
 
-# Emacs backup files
+# Emacs backup and autosave files
 *~
 .#*
-*#
+\#*#
  
 # Compiled Object files
 *.slo
